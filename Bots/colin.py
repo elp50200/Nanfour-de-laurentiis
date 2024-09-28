@@ -1,5 +1,4 @@
 import numpy as np
-from Bots.SourceCode import Connect4
 
 class Player:
     def __init__(self, playerOne):
@@ -116,3 +115,6 @@ class Player:
         if window.count(opp_piece) == 3 and window.count(0) == 1:
             score -= 4
         return score
+
+
+

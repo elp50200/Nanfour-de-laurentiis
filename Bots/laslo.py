@@ -2,6 +2,7 @@
 class Player:
 
 	def __init__(self, playerOne):
+		self.scores = [0, 0, 0, 0, 0, 0, 0]
 		self.simState = None
 		if playerOne is True:
 			self.player = 1
