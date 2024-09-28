@@ -14,8 +14,8 @@ Ensure you have reviewed the [Rules & FAQ](https://hackmidwest.com/#faq)
 ## Who's on your team?
 *List the full names,  email address & Github username of your teammates*
 
-1.   **Full Name**  || **fullname@company.com**  (or fullname@school.edu if you're a CS student) || **Github Username**
-2. 
+1. Eric Price || elp50200@ucmo.edu || elp50200
+2. Ian Pope || ijp74190@ucmo.edi || ijp74190
 3.
 4.
 5.
@@ -24,10 +24,12 @@ Ensure you have reviewed the [Rules & FAQ](https://hackmidwest.com/#faq)
 
 
 ## What is the name of your App?
-
+Nanfour De Laurentiis
 <br /><br />
 ## What does your app do?
-*Describe in a paragraph or so*
+Our application is a connect-four bot designed to choose the most optimal placement based on a algorithm made to beat the competition.
+
+We are using a python based application and hoping to integrate machine learning to provide the best system possible.
 
 <br /><br />
 
@@ -41,7 +43,7 @@ Ensure you have reviewed the [Rules & FAQ](https://hackmidwest.com/#faq)
 - [ ]  Red Hat | Intel AI Challenge
 - [ ]  Zoom Challenge
 - [ ]  USDA Challenge
-- [ ]  brAIn Rot Challenge
+- [X]  brAIn Rot Challenge
 
 
 <br /><br />
