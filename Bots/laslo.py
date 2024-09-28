@@ -2,6 +2,7 @@
 class Player:
 
 	def __init__(self, playerOne):
+		self.simState = None
 		if playerOne is True:
 			self.player = 1
 			self.oppo = 2
@@ -22,5 +23,25 @@ class Player:
 			return False
 		for row in range(6):
 			if gameState[row][col] == 0:
+				return True
+		return False
+
+	def simMove(self, gameState, col):
+		if col < 0 or col > 6:
+			return False
+		for row in range(6):
+			if gameState[row][col] == 0:
+				self.simState = gameState
+				self.simState[row][col] = self.player
+				return True
+		return False
+
+	def simMoveOppo(self, gameState, col):
+		if col < 0 or col > 6:
+			return False
+		for row in range(6):
+			if gameState[row][col] == 0:
+				self.simState = gameState
+				self.simState[row][col] = self.oppo
 				return True
 		return False
