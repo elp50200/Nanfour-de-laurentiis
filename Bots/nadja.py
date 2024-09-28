@@ -15,6 +15,9 @@ class Player:
         col, minimax_score = self.minimax(board, 5, -np.inf, np.inf, True)
         return col
 
+    def is_terminal_node(self, board):
+        return self.detect_win(board, self.player) or self.detect_win(board, self.oppo) or len(self.get_valid_locations(board)) == 0
+
     def minimax(self, board, depth, alpha, beta, maximizingPlayer):
         valid_locations = self.get_valid_locations(board)
         is_terminal = self.is_terminal_node(board)

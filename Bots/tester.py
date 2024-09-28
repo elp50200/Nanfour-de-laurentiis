@@ -22,7 +22,7 @@ gameState = [
   [0, 0, 0, 0, 0, 0, 0]
 ]
 
-model = colin.Player(playerOne=True)
+#model = colin.Player(playerOne=True)
 #model = colin.Player(playerOne=False)
 #model = laslo.Player(playerOne=True)
 #model = laslo.Player(playerOne=False)
