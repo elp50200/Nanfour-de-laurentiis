@@ -1,5 +1,4 @@
 import numpy as np
-from Bots.SourceCode import Connect4
 
 class Player:
     def __init__(self, playerOne):
@@ -12,8 +11,20 @@ class Player:
 
     def makeMove(self, gameState) -> int:
         board = np.array(gameState)
+        winning_move = self.get_winning_move(board, self.player)
+        if winning_move is not None:
+            return winning_move
         col, minimax_score = self.minimax(board, 5, -np.inf, np.inf, True)
         return col
+
+    def get_winning_move(self, board, piece):
+        for col in self.get_valid_locations(board):
+            row = self.get_next_open_row(board, col)
+            temp_board = board.copy()
+            self.drop_piece(temp_board, row, col, piece)
+            if self.detect_win(temp_board, piece):
+                return col
+        return None
 
     def is_terminal_node(self, board):
         return self.detect_win(board, self.player) or self.detect_win(board, self.oppo) or len(self.get_valid_locations(board)) == 0
