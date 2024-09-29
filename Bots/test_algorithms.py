@@ -1,6 +1,7 @@
 import numpy as np
 from Bots.VAMPIRE import Player as VampirePlayer
 from Bots.guillermo import Player as GuillermoPlayer
+from Bots.werewolf import Player as WerewolfPlayer
 
 def print_board(board):
     print(np.flip(board, 0))
@@ -11,8 +12,8 @@ def play_game():
     turn = 0
     play = 0
 
-    player1 = VampirePlayer(playerOne=True)  # Player 1 using VAMPIRE
-    player2 = VampirePlayer(playerOne=False)  # Player 2 using guillermo
+    player1 = WerewolfPlayer(playerOne=True)  # Player 1 using VAMPIRE
+    player2 = WerewolfPlayer(playerOne=False)  # Player 2 using guillermo
 
     while not game_over:
         if turn == 0:
