@@ -1,5 +1,6 @@
 import numpy as np
 
+
 class Player:
     def __init__(self, playerOne):
         if playerOne:
@@ -17,12 +18,10 @@ class Player:
         if winning_move is not None:
             return winning_move
 
-            # Determine the depth based on the player
         if self.player == 1:
             col, score = self.negamax(board, 6, -np.inf, np.inf, 1)
         else:
             col, minimax_score = self.minimax(board, 5, -np.inf, np.inf, True)
-
 
         return col
 
