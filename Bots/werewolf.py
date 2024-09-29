@@ -30,7 +30,7 @@ class Player:
             return col
 
         new_col = self.get_valid_locations(board)
-        return len(new_col) - 1
+        return new_col[len(new_col) - 1]
 
 
     def get_winning_move(self, board, piece):
@@ -223,7 +223,7 @@ class Player:
             return False
         for row in range(6):
             if gameState[row][col] == 0:
-                self.simState = gameState
+                self.simState = gameState.copy()
                 self.simState[row][col] = self.player
                 return True
         return False
