@@ -12,7 +12,7 @@ def play_game():
     play = 0
 
     player1 = VampirePlayer(playerOne=True)  # Player 1 using VAMPIRE
-    player2 = GuillermoPlayer(playerOne=False)  # Player 2 using guillermo
+    player2 = VampirePlayer(playerOne=False)  # Player 2 using guillermo
 
     while not game_over:
         if turn == 0:

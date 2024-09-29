@@ -7,7 +7,6 @@ class Connect4:
     def detect_win(self):
         dirs = [(0,1), (1,0), (1,1), (1,-1)]
         rows, cols = 6, 7
-
         for x in range(rows):
             for y in range(cols):
                 if self.board[x][y] != 0:
