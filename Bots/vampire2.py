@@ -20,8 +20,8 @@ class Player:
             return winning_move
 
         if self.player == 1:
-            #col, score = self.negamax(board, 6, -np.inf, np.inf, 1)
-            col, minimax_score = self.minimax(board, 5, -np.inf, np.inf, True)
+            col, score = self.negamax(board, 6, -np.inf, np.inf, 1)
+            #col, minimax_score = self.minimax(board, 5, -np.inf, np.inf, True)
         else:
             col, minimax_score = self.minimax(board, 5, -np.inf, np.inf, True)
 
@@ -57,24 +57,18 @@ class Player:
             else:  # Depth is zero
                 return (None, color * self.score_position(board, self.player))
 
-        # Move ordering: prioritize center column and potential winning moves
+        # Move ordering: prioritize center column
         center = 3
         valid_locations.sort(key=lambda x: abs(center - x))
 
         best_value = -np.inf
         best_column = valid_locations[0]
-
-        def evaluate_move(col):
+        for col in valid_locations:
             row = self.get_next_open_row(board, col)
             b_copy = board.copy()
             self.drop_piece(b_copy, row, col, self.player if color == 1 else self.oppo)
             _, value = self.negamax(b_copy, depth - 1, -beta, -alpha, -color)
-            return col, -value
-
-        with ThreadPoolExecutor() as executor:
-            results = list(executor.map(evaluate_move, valid_locations))
-
-        for col, value in results:
+            value = -value
             if value > best_value:
                 best_value = value
                 best_column = col
