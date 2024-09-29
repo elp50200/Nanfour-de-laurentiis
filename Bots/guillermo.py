@@ -8,21 +8,13 @@ class Player:
         else:
             self.player = 2
             self.oppo = 1
-        self.transposition_table = {}
 
     def makeMove(self, gameState) -> int:
         board = np.array(gameState)
         winning_move = self.get_winning_move(board, self.player)
-
-        # Determine the depth based on the player
-        if self.player == 1:
-            depth = 6  # Higher depth for player 1
-        else:
-            depth = 5  # Lower depth for player 2
-
         if winning_move is not None:
             return winning_move
-        col, score = self.negamax(board, depth, -np.inf, np.inf, 1)
+        col, minimax_score = self.minimax(board, 5, -np.inf, np.inf, True)
         return col
 
     def get_winning_move(self, board, piece):
@@ -37,45 +29,54 @@ class Player:
     def is_terminal_node(self, board):
         return self.detect_win(board, self.player) or self.detect_win(board, self.oppo) or len(self.get_valid_locations(board)) == 0
 
-    def negamax(self, board, depth, alpha, beta, color):
-        board_tuple = tuple(map(tuple, board))
-        if board_tuple in self.transposition_table:
-            return self.transposition_table[board_tuple]
-
+    def minimax(self, board, depth, alpha, beta, maximizingPlayer):
         valid_locations = self.get_valid_locations(board)
         is_terminal = self.is_terminal_node(board)
         if depth == 0 or is_terminal:
             if is_terminal:
                 if self.detect_win(board, self.player):
-                    return (None, color * 100000000000000)
+                    return (None, 100000000000000)
                 elif self.detect_win(board, self.oppo):
-                    return (None, color * -10000000000000)
+                    return (None, -10000000000000)
                 else:  # Game is over, no more valid moves
                     return (None, 0)
             else:  # Depth is zero
-                return (None, color * self.score_position(board, self.player))
+                return (None, self.score_position(board, self.player))
 
         # Move ordering: prioritize center column
         center = 3
         valid_locations.sort(key=lambda x: abs(center - x))
 
-        best_value = -np.inf
-        best_column = valid_locations[0]
-        for col in valid_locations:
-            row = self.get_next_open_row(board, col)
-            b_copy = board.copy()
-            self.drop_piece(b_copy, row, col, self.player if color == 1 else self.oppo)
-            _, value = self.negamax(b_copy, depth - 1, -beta, -alpha, -color)
-            value = -value
-            if value > best_value:
-                best_value = value
-                best_column = col
-            alpha = max(alpha, value)
-            if alpha >= beta:
-                break
-
-        self.transposition_table[board_tuple] = (best_column, best_value)
-        return best_column, best_value
+        if maximizingPlayer:
+            value = -np.inf
+            column = np.random.choice(valid_locations)
+            for col in valid_locations:
+                row = self.get_next_open_row(board, col)
+                b_copy = board.copy()
+                self.drop_piece(b_copy, row, col, self.player)
+                new_score = self.minimax(b_copy, depth - 1, alpha, beta, False)[1]
+                if new_score > value:
+                    value = new_score
+                    column = col
+                alpha = max(alpha, value)
+                if alpha >= beta:
+                    break
+            return column, value
+        else:  # Minimizing player
+            value = np.inf
+            column = np.random.choice(valid_locations)
+            for col in valid_locations:
+                row = self.get_next_open_row(board, col)
+                b_copy = board.copy()
+                self.drop_piece(b_copy, row, col, self.oppo)
+                new_score = self.minimax(b_copy, depth - 1, alpha, beta, True)[1]
+                if new_score < value:
+                    value = new_score
+                    column = col
+                beta = min(beta, value)
+                if alpha >= beta:
+                    break
+            return column, value
 
     def get_valid_locations(self, board):
         valid_locations = []
