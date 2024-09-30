@@ -27,9 +27,9 @@ Ensure you have reviewed the [Rules & FAQ](https://hackmidwest.com/#faq)
 Nanfour De Laurentiis
 <br /><br />
 ## What does your app do?
-Our application is a connect-four bot designed to choose the most optimal placement based on a algorithm made to beat the competition.
+Our application is a connect-four bot designed to win against other bots in the HackMidwest BrainRot challenge. 
 
-We are using a python based application and hoping to integrate machine learning to provide the best system possible.
+We utilize a combination of minimax algorithms and negamax algorithms to optimize our decision making based on which player we are, opponent moves, and board availability.
 
 <br /><br />
 
